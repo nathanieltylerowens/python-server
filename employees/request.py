@@ -2,23 +2,26 @@ EMPLOYEES = [
     {
         "id": 1,
         "name": "jim",
-        "species": "Dog",
-        "locationId": 1,
-        "customerId": 4
+        "locationId": 2,
+        "manager": True,
+        "fullTime": False,
+        "hourlyRate": 15
     },
     {
         "id": 2,
         "name": "Stu",
-        "species": "Dog",
-        "locationId": 1,
-        "customerId": 2
+        "locationId": 2,
+        "manager": True,
+        "fullTime": True,
+        "hourlyRate": 8
     },
     {
         "id": 3,
         "name": "Lenny",
-        "species": "Cat",
-        "locationId": 2,
-        "customerId": 1
+        "locationId": 1,
+        "manager": False,
+        "fullTime": False,
+        "hourlyRate": 4
     }
 ]
 
