@@ -1,0 +1,10 @@
+{
+  "sqltools.connections": [
+    {
+      "previewLimit": 50,
+      "driver": "SQLite",
+      "name": "Python Kennels",
+      "database": "\\\\wsl$\\Ubuntu\\home\\nathaniel\\workspace\\python-server\\kennel.db"
+    }
+  ]
+}
