@@ -6,5 +6,6 @@
       "name": "Python Kennels",
       "database": "\\\\wsl$\\Ubuntu\\home\\nathaniel\\workspace\\python-server\\kennel.db"
     }
-  ]
+  ],
+  "sqltools.useNodeRuntime": true
 }
