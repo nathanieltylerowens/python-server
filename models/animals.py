@@ -9,5 +9,3 @@ class Animal():
         self.species = species
         self.status = status
         self.location_id = location_id
-    def __repr__(self):
-        return f"{self.name} is a {self.species}"
