@@ -9,3 +9,4 @@ class Animal():
         self.species = species
         self.status = status
         self.location_id = location_id
+        self.location = None

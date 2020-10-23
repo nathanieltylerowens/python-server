@@ -43,7 +43,6 @@ class HandleRequests(BaseHTTPRequestHandler):
         self.send_header('Content-type', 'application/json')
         self.send_header('Access-Control-Allow-Origin', '*')
         self.end_headers()
-
     # Here's a method on the class that overrides the parent's method.
     # It handles any GET request.
     def do_GET(self):
@@ -87,9 +86,6 @@ class HandleRequests(BaseHTTPRequestHandler):
                 response = get_animals_by_status(value)
         
         self.wfile.write(f"{response}".encode())
-
-    # Here's a method on the class that overrides the parent's method.
-    # It handles any POST request.
     def do_POST(self):
         self._set_headers(201)
         content_len = int(self.headers.get('content-length', 0))
@@ -144,19 +140,25 @@ class HandleRequests(BaseHTTPRequestHandler):
         post_body = self.rfile.read(content_len)
         post_body = json.loads(post_body)
 
-    # Parse the URL
+        # Parse the URL
         (resource, id) = self.parse_url(self.path)
+   
+        success = False
 
-    # Delete a single animal from the list
         if resource == "animals":
-            update_animal(id, post_body)
-            self.wfile.write("".encode())
+            success = update_animal(id, post_body)
         elif resource == "employees":
-            update_employee(id)
-            self.wfile.write("".encode())
+            success = update_employee(id, post_body)
         elif resource == "locations":
-            update_location(id)
-            self.wfile.write("".encode())
+            success = update_location(id, post_body)
+    # rest of the elif's
+    
+        if success:
+            self._set_headers(204)
+        else:
+            self._set_headers(404)
+
+        self.wfile.write("".encode())
 
 
 # This function is not inside the class. It is the starting
