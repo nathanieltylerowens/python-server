@@ -20,10 +20,10 @@ def get_all_locations():
         # Write the SQL query to get the information you want
         db_cursor.execute("""
         SELECT
-            a.id,
-            a.name,
-            a.address
-        FROM location a
+            l.id,
+            l.name,
+            l.address
+        FROM Location l
         """)
 
         # Initialize an empty list to hold all animal representations
@@ -55,11 +55,11 @@ def get_single_location(id):
         # into the SQL statement.
         db_cursor.execute("""
         SELECT
-            a.id,
-            a.name,
-            a.address
-        FROM location a
-        WHERE a.id = ?
+            l.id
+            l.name,
+            l.address
+        FROM Location l
+        WHERE l.id = ?
         """, ( id, ))
 
         # Load the single result into memory
@@ -95,10 +95,24 @@ def delete_location(id):
         WHERE id = ?
         """, (id, ))
 def update_location(id, new_location):
-    # Iterate the ANIMALS list, but use enumerate() so that
-    # you can access the index value of each item.
-    for index, location in enumerate(LOCATIONS):
-        if location.id == id:
-            # Found the animal. Update the value.
-            LOCATIONS[index] = Location(new_location["id"], new_location["name"], new_location["address"])
-            break
+    with sqlite3.connect("./kennel.db") as conn:
+        db_cursor = conn.cursor()
+
+        db_cursor.execute("""
+        UPDATE location
+            SET
+                name = ?,
+                address = ?
+        WHERE id = ?
+        """, (new_location['name'], new_location['address'], id, ))
+
+        # Were any rows affected?
+        # Did the client send an `id` that exists?
+        rows_affected = db_cursor.rowcount
+
+    if rows_affected == 0:
+        # Forces 404 response by main module
+        return False
+    else:
+        # Forces 204 response by main module
+        return True
